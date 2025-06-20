@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "name": "Anjali Kumar",
+    "bio": "Building decentralized identity tools.",
+    "wallet": "0x123456789abcdef...",
+    "project": "ReclaimID",
+    "image": "https://via.placeholder.com/300"
+  },
+  {
+    "id": 2,
+    "name": "Rahul Dev",
+    "bio": "Working on green blockchain infra.",
+    "wallet": "0xabcdef123456789...",
+    "project": "GreenNode",
+    "image": "https://via.placeholder.com/300"
+  }
+]
