@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import builders from 'C:/Chitty Babu/BuilderPayMCP_Project/backend/data/builders.json';
 
 function BuilderProfile() {
   const { id } = useParams();
   const [builder, setBuilder] = useState(null);
 
   useEffect(() => {
-    fetch(`https://builderpaymcp-backend.onrender.com/api/builders/${id}`)
-      .then(res => res.json())
-      .then(data => setBuilder(data));
+    const found = builders.find(b => b.id === id);
+    setBuilder(found);
   }, [id]);
 
   const donate = async () => {
