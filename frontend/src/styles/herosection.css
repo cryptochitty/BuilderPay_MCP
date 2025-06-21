@@ -13,7 +13,7 @@ body {
   padding-left: 3rem;
   padding-right: 3rem;
   gap: 2rem;
-
+  justify-content: center;
   align-items: middle;
 }
 
