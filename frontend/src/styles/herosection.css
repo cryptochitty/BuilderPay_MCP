@@ -110,6 +110,7 @@ button:hover {
   display: flex;
   flex-direction: row;
   align-items: space-between;
+  gap: 1.5rem;
 }
 
 .herosection__cta-desc {
