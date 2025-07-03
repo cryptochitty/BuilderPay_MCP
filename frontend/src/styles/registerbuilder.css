@@ -172,3 +172,63 @@ input[type="tel"]::placeholder {
   animation-fill-mode: both;
   animation-duration: 1s;
 }
+
+
+
+@media (max-width: 768px) {
+  .register-builder {
+    flex-direction: column;
+    height: auto;
+    padding-top: 1rem;
+    align-items: stretch;
+  }
+
+  .register-left,
+  .register-right {
+    width: 100vw;
+    min-width: 0;
+    max-width: 100vw;
+    height: auto;
+    padding: 1rem;
+    box-sizing: border-box;
+  }
+
+  .register-right {
+    height: auto;
+    min-height: 0;
+    max-height: none;
+    overflow-y: visible;
+    align-items: stretch;
+  }
+
+  .register-builder h1 {
+    font-size: 2rem;
+    line-height: 110%;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
+  }
+
+  .builder-form-step1 {
+    gap: 0.75rem;
+  }
+
+  .next-button,
+  .metamask-button {
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+    font-size: 1rem;
+  }
+
+  .register-success {
+    font-size: 1.1rem;
+    text-align: center;
+  }
+}

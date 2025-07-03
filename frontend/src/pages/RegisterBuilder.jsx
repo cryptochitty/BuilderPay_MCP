@@ -1,10 +1,16 @@
 import React, { useState } from "react";
 import "../styles/registerbuilder.css"; // Assuming you have a CSS file for styles
 import VerificationPage from "../components/SelfDid";
+import { getContract } from "../utils/contract";
+
 
 const RegisterBuilder = () => {
   const [step, setStep] = useState(1);
   const [isMetaMaskConnected, setIsMetaMaskConnected] = useState(false);
+
+  const [formData, setFormData] = useState({});
+
+
 
   // MetaMask connect handler
   const connectMetaMask = async () => {
@@ -20,6 +26,8 @@ const RegisterBuilder = () => {
     }
   };
 
+
+
   return (
     <div className="register-builder">
       <div className="register-left">
@@ -33,9 +41,33 @@ const RegisterBuilder = () => {
         {step === 1 && (
           <form
             className="builder-form-step1"
-            onSubmit={(e) => {
+            onSubmit={async (e) => {
               e.preventDefault();
-              setStep(2);
+
+              const data = Object.fromEntries(new FormData(e.target).entries());
+              setFormData(data);
+
+              try {
+                const contract = await getContract();
+                const tx = await contract.registerBuilder(
+                  data.displayName,
+                  data.username || "",
+                  "", // placeholder for profileImage URL or IPFS hash
+                  data.bio || "",
+                  data.github || "",
+                  data.twitter || "",
+                  data.website || "",
+                  data.skills || ""
+                );
+
+                await tx.wait();
+                console.log("Registration successful on-chain");
+
+                setStep(2);
+              } catch (err) {
+                alert("Smart contract interaction failed");
+                console.error(err);
+              }
             }}
           >
             <label htmlFor="displayName">Name / Display Name</label>
@@ -49,13 +81,7 @@ const RegisterBuilder = () => {
               placeholder="@buildwithali"
             />
 
-            <label htmlFor="profileImage">Profile Image</label>
-            <input
-              type="file"
-              id="profileImage"
-              name="profileImage"
-              accept="image/*"
-            />
+            
 
             <label htmlFor="bio">Short Bio / About You</label>
             <textarea
@@ -96,7 +122,7 @@ const RegisterBuilder = () => {
               name="skills"
               placeholder="e.g. Solidity, Frontend, DevRel"
             />
-         
+
             <button
               type="button"
               onClick={connectMetaMask}
@@ -105,7 +131,11 @@ const RegisterBuilder = () => {
             >
               {isMetaMaskConnected ? "MetaMask Connected" : "Connect MetaMask"}
             </button>
-            <button type="submit" disabled={!isMetaMaskConnected} className="next-button">
+            <button
+              type="submit"
+              disabled={!isMetaMaskConnected}
+              className="next-button"
+            >
               Next
             </button>
           </form>
@@ -124,9 +154,13 @@ const RegisterBuilder = () => {
         )}
         {step === 3 && (
           <div>
-            <img src="../src/assets/verified.svg" alt="Success" className="successimg"/>
+            <img
+              src="../src/assets/verified.svg"
+              alt="Success"
+              className="successimg"
+            />
             <h6 className="register-success">Registration Complete!</h6>
-            <button>Go to Dashboard</button>
+            <button className="next-button">Go to Dashboard</button>
           </div>
         )}
       </div>
