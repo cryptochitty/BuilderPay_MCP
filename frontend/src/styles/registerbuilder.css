@@ -49,7 +49,7 @@ label {
 }
 
 input,
-textarea {
+textarea, select {
   font-family: "Inter Tight", sans-serif;
   font-size: 1rem;
   color: var(--Neutral-100, #030712);
