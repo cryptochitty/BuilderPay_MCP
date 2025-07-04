@@ -44,7 +44,7 @@ const LoginSupporter = () => {
                 setErrorMessage("");
             } else {
                 setLoginSuccess(false);
-                setErrorMessage("Wallet not registered as a builder.");
+                setErrorMessage("Wallet not registered as a Supporter.");
             }
         } catch (err) {
             console.error(err);

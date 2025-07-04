@@ -1,18 +1,18 @@
-import React, { useState } from "react";
-import "../styles/registerbuilder.css"; // Assuming you have a CSS file for styles
+import React, { useState, useEffect } from "react";
+import "../styles/registerbuilder.css";
 import VerificationPage from "../components/SelfDid";
 import { getContract } from "../utils/contract";
-
+import { uploadToIPFS } from "../utils/pinata";
 
 const RegisterBuilder = () => {
   const [step, setStep] = useState(1);
   const [isMetaMaskConnected, setIsMetaMaskConnected] = useState(false);
-
+  const [ipfsUrl, setIpfsUrl] = useState("");
+  const [isUploading, setIsUploading] = useState(false);
   const [formData, setFormData] = useState({});
 
+  const API_TOKEN = "bc5370e1.194aa0685eaa4efc9d0e787720e1fa65"; // Replace this with your token
 
-
-  // MetaMask connect handler
   const connectMetaMask = async () => {
     if (window.ethereum) {
       try {
@@ -26,7 +26,57 @@ const RegisterBuilder = () => {
     }
   };
 
+  const handleUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
 
+    setIsUploading(true);
+    try {
+      const client = new Web3Storage({ token: API_TOKEN });
+      const cid = await client.put([file]);
+      const url = `https://ipfs.io/ipfs/${cid}/${file.name}`;
+      setIpfsUrl(url);
+      console.log("Uploaded to IPFS:", url);
+    } catch (err) {
+      alert("Image upload failed");
+      console.error("IPFS Upload Error:", err);
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!ipfsUrl) {
+      alert("Please wait for the image upload to finish.");
+      return;
+    }
+
+    const data = Object.fromEntries(new FormData(e.target).entries());
+    setFormData(data);
+
+    try {
+      const contract = await getContract();
+      const tx = await contract.registerBuilder(
+        data.displayName,
+        data.username || "",
+        data.bio || "",
+        data.github || "",
+        data.twitter || "",
+        data.website || "",
+        data.skills || "",
+        ipfsUrl || "" // ✅ Pass the actual IPFS URL here
+      );
+
+      await tx.wait();
+      console.log("Registration successful on-chain");
+      setStep(2);
+    } catch (err) {
+      alert("Smart contract interaction failed");
+      console.error(err);
+    }
+  };
 
   return (
     <div className="register-builder">
@@ -39,37 +89,7 @@ const RegisterBuilder = () => {
 
       <div className="register-right">
         {step === 1 && (
-          <form
-            className="builder-form-step1"
-            onSubmit={async (e) => {
-              e.preventDefault();
-
-              const data = Object.fromEntries(new FormData(e.target).entries());
-              setFormData(data);
-
-              try {
-                const contract = await getContract();
-                const tx = await contract.registerBuilder(
-                  data.displayName,
-                  data.username || "",
-                  "", // placeholder for profileImage URL or IPFS hash
-                  data.bio || "",
-                  data.github || "",
-                  data.twitter || "",
-                  data.website || "",
-                  data.skills || ""
-                );
-
-                await tx.wait();
-                console.log("Registration successful on-chain");
-
-                setStep(2);
-              } catch (err) {
-                alert("Smart contract interaction failed");
-                console.error(err);
-              }
-            }}
-          >
+          <form className="builder-form-step1" onSubmit={handleSubmit}>
             <label htmlFor="displayName">Name / Display Name</label>
             <input type="text" id="displayName" name="displayName" required />
 
@@ -81,7 +101,16 @@ const RegisterBuilder = () => {
               placeholder="@buildwithali"
             />
 
-            
+            <input
+              type="file"
+              onChange={async (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                  const cid = await uploadToIPFS(file);
+                  alert(`File uploaded! IPFS CID: ${cid}`);
+                }
+              }}
+            />
 
             <label htmlFor="bio">Short Bio / About You</label>
             <textarea
@@ -131,20 +160,21 @@ const RegisterBuilder = () => {
             >
               {isMetaMaskConnected ? "MetaMask Connected" : "Connect MetaMask"}
             </button>
+
             <button
               type="submit"
-              disabled={!isMetaMaskConnected}
+              disabled={!isMetaMaskConnected || isUploading || !ipfsUrl}
               className="next-button"
             >
               Next
             </button>
           </form>
         )}
+
         {step === 2 && (
           <div>
             <VerificationPage
               onResult={(result) => {
-                // If result is 0101 or anything else, go to step 3
                 if (result === "0101" || result !== "success") {
                   setStep(3);
                 }
@@ -152,6 +182,7 @@ const RegisterBuilder = () => {
             />
           </div>
         )}
+
         {step === 3 && (
           <div>
             <img

@@ -1,0 +1,225 @@
+/* Container Styling */
+.builder-list-container {
+  margin: 2rem auto;
+  padding: 0 1rem;
+  font-family: "Inter", sans-serif;
+}
+
+/* Grid Layout */
+.builder-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Card Styling */
+.builder-card {
+  background-color: transparent;
+  border-radius: 1.5rem;
+  padding: 1rem;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.2s ease;
+  border: 1px solid var(--Neutral-100, #030712);
+}
+
+.builder-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Text Styles */
+.builder-card h3 {
+  margin: 0.5rem 0 0.25rem;
+  font-size: 1.25rem;
+  color: #222;
+}
+
+.username {
+  font-size: 0.9rem;
+  color: #777;
+  margin-bottom: 1rem;
+}
+
+.bio,
+.skills {
+  font-size: 0.85rem;
+  color: #444;
+  text-align: center;
+  margin-bottom: 0.75rem;
+}
+
+/* Links Section */
+.builder-links {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 0.75rem;
+}
+
+.builder-links a {
+  font-size: 0.8rem;
+  color: #007bff;
+  text-decoration: none;
+  padding: 4px 8px;
+  background-color: #e8f0ff;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.builder-links a:hover {
+  background-color: #d2e4ff;
+}
+
+/* States */
+.loading,
+.no-builders {
+  text-align: center;
+  font-size: 1rem;
+  color: #555;
+  margin-top: 2rem;
+}
+
+/* code for new */
+body {
+  font-family: "Inter", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #fff;
+}
+
+.card-container {
+  border-radius: 2rem;
+  overflow: hidden;
+}
+
+.card-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 24px; /* Apply border-radius to the wrapper */
+  overflow: hidden; /* Hide overflow for rounded corners */
+}
+
+.card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.image-shadow {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50%; /* Adjust height of the shadow gradient */
+
+  border-radius: 24px; /* Match card-container border-radius */
+}
+
+.card-content {
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 1rem;
+
+  color: #6b7280;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  z-index: 10;
+  margin-left: 2rem;
+}
+
+.card-title {
+  font-size: 2rem; /* 24px */
+  font-weight: 600; /* Semi-bold */
+  letter-spacing: normal;
+  margin-bottom: 4px;
+  width: 80%;
+}
+
+.card-bio {
+  font-size: 1rem; /* 16px */
+  font-weight: 400; /* Regular */
+  width: 80%;
+}
+
+.arrow-button {
+  background-color: white;
+  color: black;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.arrow-button:hover {
+  background-color: #f0f0f0;
+}
+
+.knowmore {
+  display: flex;
+  padding: 0.5rem 1.25rem;
+  justify-content: center;
+  background-color: #fff;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 6.25rem;
+  width: 90%;
+  border: 1px solid var(--Neutral-100, #030712);
+  color: var(--Neutral-100, #030712);
+  font-family: Inter Tight;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%; /* 1.5rem */
+  letter-spacing: -0.02rem;
+}
+
+.knowmore:hover {
+  background-color: var(--Neutral-10, #030712);
+  color: var(--Neutral-100, #fff);
+}
+
+.page-title {
+  color: var(--Neutral-100, #030712);
+
+  /* Heading/Desktop/H1 */
+  font-family: Inter Tight;
+  font-size: 6.5rem;
+  font-style: normal;
+  text-align: center;
+  font-weight: 700;
+  width: 100%;
+  line-height: 100%;
+  letter-spacing: -0.13rem;
+  margin-bottom: 4rem;
+}
+
+.page-title span {
+  color: var(--Neutral-40, #aeb2ba);
+  text-align: center;
+
+  /* Heading/Desktop/H1 */
+  font-family: Inter Tight;
+  font-size: 6.5rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 100%; /* 6.5rem */
+  letter-spacing: -0.13rem;
+}

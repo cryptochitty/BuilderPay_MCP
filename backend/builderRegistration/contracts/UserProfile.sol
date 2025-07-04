@@ -10,11 +10,12 @@ contract RegisterBuilder {
         string twitter;
         string website;
         string skills;
-        string profileImageUri; // IPFS URI of uploaded profile picture
+        string profileImageUri;
         bool registered;
     }
 
     mapping(address => Builder) public builders;
+    address[] public registeredAddresses;
 
     event BuilderRegistered(address indexed builder, string username);
 
@@ -42,10 +43,31 @@ contract RegisterBuilder {
             true
         );
 
+        registeredAddresses.push(msg.sender);
+
         emit BuilderRegistered(msg.sender, username);
     }
 
     function getBuilder(address addr) public view returns (Builder memory) {
         return builders[addr];
+    }
+
+    function getAllBuilders() public view returns (Builder[] memory) {
+        uint256 total = registeredAddresses.length;
+        Builder[] memory allBuilders = new Builder[](total);
+
+        for (uint256 i = 0; i < total; i++) {
+            allBuilders[i] = builders[registeredAddresses[i]];
+        }
+
+        return allBuilders;
+    }
+
+    function getRegisteredAddresses() public view returns (address[] memory) {
+        return registeredAddresses;
+    }
+
+    function isRegistered(address user) public view returns (bool) {
+        return builders[user].registered;
     }
 }
