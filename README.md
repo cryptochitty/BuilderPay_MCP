@@ -1,96 +1,179 @@
+
 # 🚀 BuilderPay
 
-**BuilderPay** is a next-generation Web3 platform designed to **empower builders** by connecting them directly with donors who want to support impactful projects — *no scores, badges, or gatekeepers needed*.  
+BuilderPay is a next-generation Web3 platform empowering builders by connecting them directly with donors — no scores, badges, or gatekeepers. Donors can choose to fund individual builders directly or contribute to a pooled funding model that distributes incentives to builders based on reputation metrics like Superchain reputation or CeloPG scores.
 
-On BuilderPay, anyone can donate Celo or cUSD directly to builders they believe in, while builders can optionally **earn passive income** through ad revenue sharing. By integrating **Self.ID**, builders create self-sovereign, verifiable identities they control — building trust with donors and maintaining ownership of their digital reputation.
 
-BuilderPay’s goal is to provide a **transparent, decentralized funding model** that gives builders sustainable income streams and rewards genuine community support.
 
----
+✨ Key Features
 
-## ✨ Features
+✅ **Direct Donations** – Donors can fund builders individually, with incentives from staking going directly to the chosen builder.
 
-✅ **Direct Donations:**  
-Support builders directly with Celo or cUSD, instantly and transparently.
+✅ **BuilderPay Pool Donations** – Donors can contribute to BuilderPay’s pooled fund, where incentives from staking are redistributed to builders proportionally based on their Superchain reputation or CeloPG scores.
 
-✅ **Self.ID Integration:**  
-Builders use decentralized identities (DIDs) through [Self.ID](https://self.id/) for secure, portable, self-sovereign profiles.
+✅ **AutoComp.Finance Integration** – All donated funds are invested in DeFi strategies to generate yield, with incentives auto-reinvested for compounding growth.
 
-✅ **Ad Revenue Sharing:**  
-Builders can opt-in to show ads on their profiles. Monthly ad revenue is tracked and distributed automatically via smart contracts.
+✅ **Stablecoin Support with Mento** – Donations in any supported Celo asset (CELO, cEUR, cREAL) are automatically swapped on-chain to stablecoins like cUSD using Mento.
 
-✅ **Builder Dashboard:**  
-Builders track donations, ad earnings, and traffic metrics in real time.
+✅ **Superchain Compatibility** – BuilderPay supports deployments on Celo Mainnet and OP Superchain chains (e.g., Optimism, Base), allowing cross-chain donations, staking, and reputation tracking.
 
-✅ **Admin Dashboard:**  
-Platform administrators manage builders, view analytics, and trigger payouts.
+✅ **Self.ID Integration** – Builders create decentralized, self-sovereign identities to prove authenticity and build trust with donors across chains.
 
----
+🛠️ How It Works
 
-## 🔐 Builder Identity with Self.ID
+1️⃣ Donor chooses donation type:
+- **Direct Donation** → specify a builder → funds staked → builder receives incentives.
+- **Pooled Donation** → donate to BuilderPay pool → funds staked → incentives distributed to multiple builders based on their reputation scores.
 
-BuilderPay uses [Self.ID (self.xyz)](https://self.id/) and Ceramic to manage decentralized builder identities:
+2️⃣ **Staking Module**:
+- Funds from both individual and pooled donations are invested into yield farming strategies (e.g., Moola, Ubeswap on Celo, Velodrome/Sonne on OP Superchain).
 
-- Builders sign in with MetaMask or WalletConnect to create/retrieve their DID.
-- Profiles are stored on Ceramic, containing verifiable data like name, bio, and project links.
-- Donors can verify builder profiles before donating, increasing trust and transparency.
+3️⃣ **Redistribution Engine** (for pooled donations):
+- Uses builders’ Superchain reputation or CeloPG scores to calculate each builder’s share of staking incentives.
+- Builders with higher scores receive a greater portion of the pooled incentives.
 
----
+4️⃣ **Withdrawal**:
+- Direct donations → builder withdraws original donation + yield.
+- Pooled donations → builders claim their proportional share of incentives.
 
-## 💰 Revenue Sharing Model
-
-- Ad impressions on builder profiles generate revenue.
-- The platform aggregates total revenue each month.
-- A smart contract distributes revenue to builders based on tracked metrics and predefined shares.
-- Builders receive their payouts in cUSD directly to their wallet — seamlessly and automatically.
+5️⃣ **Identity Verification**:
+- Builders maintain a verifiable Self.ID profile across chains.
 
 ---
 
-## 🛠️ Tech Stack
+## 🖼️ Architecture Overview
 
-- **Frontend:** React, TailwindCSS, ethers.js, shadcn/ui.
-- **Smart Contracts:** Solidity, OpenZeppelin libraries.
-- **Identity:** Self.ID & Ceramic.
-- **Backend:** Node.js/Express (for analytics aggregation & ad tracking).
-- **Analytics:** PostHog or Firebase.
-- **Blockchain:** Celo Mainnet & Alfajores Testnet.
+```
+
+DONOR
+│
+├── Direct Donation ───────────► BuilderPay Smart Contract (Individual Builder Mode)
+│                                  │
+│                                  ▼
+│                          Staking Module
+│                                  │
+│                                  ▼
+│                          Builder receives
+│                          original + yield
+│
+└── BuilderPay Pool Donation ──► BuilderPay Smart Contract (Pooled Mode)
+│
+▼
+Staking Module
+│
+▼
+Redistribution Engine
+│
+Superchain/CeloPG scores
+│
+▼
+Builders receive proportional incentives
+
+```
 
 ---
 
-## 🗺️ Roadmap
+## 🌐 Supported Protocols & Tools
 
-✅ MVP: Direct donations and builder profiles  
-🚧 Ad revenue tracking & distribution  
-🚧 Builder & admin dashboards  
-🚧 Crowdfunding campaigns & NFT-based rewards  
-🚧 DAO governance for BuilderPay
+- **DeFi Strategies**:
+  - Moola Market, Ubeswap (Celo)
+  - Velodrome, Sonne (OP Chains)
+
+- **Stablecoin Swaps**:
+  - Mento (Celo)
+  - Velodrome (OP Chains)
+
+- **Bridges**:
+  - Official OP Bridge for Superchain donations
+
+- **Reputation Metrics**:
+  - Superchain Reputation Score (on-chain activity/achievements)
+  - CeloPG Score (Celo community reputation system)
+
+- **Identity**:
+  - Self.ID / IDX decentralized identity for builders
+
+---
+
+## 📦 Repository Structure
+
+```
+
+.
+├── contracts/           # BuilderPay, AutoComp, Redistribution Solidity contracts
+├── frontend/            # React/Next.js DApp frontend
+├── scripts/             # Deployment, bridging, and test scripts
+├── docs/                # Diagrams and technical documentation
+└── README.md            # This file
+
+````
+
+---
+
+## 🚀 Getting Started
+
+### 1. Install dependencies
+
+```bash
+npm install
+````
+
+### 2. Deploy contracts
+
+For Celo:
+
+```bash
+npx hardhat run scripts/deploy-celo.js --network celo
+```
+
+For OP Superchain:
+
+```bash
+npx hardhat run scripts/deploy-op.js --network optimism
+```
+
+### 3. Start frontend
+
+```bash
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) to use BuilderPay locally.
+
+---
+
+## ✅ Roadmap
+
+* [x] Direct donations with staking
+* [x] BuilderPay pooled donations
+* [x] Redistribution engine with reputation-based allocation
+* [x] Stablecoin payments via Mento
+* [x] Self.ID integration
+* [ ] Advanced analytics dashboard
+* [ ] Governance module for builders
+* [ ] Automated cross-chain bridging
 
 ---
 
 ## 🤝 Contributing
 
-We welcome contributions! Please open an issue or submit a pull request with your ideas, improvements, or bug fixes.
+We welcome PRs! Please fork the repo, create a new branch, and open a pull request with your changes.
 
 ---
 
-## 📜 License
+## 📝 License
 
-MIT
-
----
-
-## 🌐 Links
-
-- [Website Demo](https://your-demo-link.com)
-- [Whitepaper](https://your-whitepaper-link.com)
-- [Pitch Deck](https://your-pitchdeck-link.com)
-- [Self.ID Documentation](https://developers.ceramic.network/tools/self-id/)
+MIT License © 2025 BuilderPay Team
 
 ---
 
-## 🙌 Support BuilderPay
+## 📫 Contact
 
-If you believe in BuilderPay’s mission to enable sustainable funding for builders everywhere, consider sharing feedback, spreading the word, or becoming an early donor.
+Questions or support? Reach out at [builderpay@example.com](mailto:builderpay@example.com) or open an issue in this repo.
 
+```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+---
+
+Would you like a **whitepaper section** or **smart contract skeleton** for this dual-mode donation logic?
+```
