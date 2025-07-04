@@ -8,10 +8,13 @@ import RegisterSupporter from './pages/SupporterRegister';
 import LoginSupporter from './pages/LoginSupporter';
 import BuilderList from './pages/BuilderList';
 import BuilderDetail from './pages/BuilderDetail';
+import DonateCelo from './pages/DonateCelo';
+import Header from './components/Header';
 
 function App() {
   return (
     <Router>
+      <Header />
       <Routes>
         <Route path="/" element={<NewHome />} />
         <Route path="/builder-profile/:id" element={<BuilderProfile />} />
@@ -21,6 +24,7 @@ function App() {
         <Route path="/login-supporter" element={<LoginSupporter />} />
         <Route path="/builder-list" element={<BuilderList />} />
         <Route path="/builder/:username" element={<BuilderDetail />} />
+        <Route path="/donate" element={<DonateCelo />} />
       </Routes>
     </Router>
   );

@@ -1,0 +1,37 @@
+.donate-celo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.donate-celo-container p {
+  color: var(--Neutral-70, #374151);
+  text-align: center;
+  font-family: Inter Tight;
+  font-size: 1.375rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 130%; /* 1.7875rem */
+  letter-spacing: 0.0275rem;
+  margin-top: -2rem;
+}
+
+.donate-button {
+  display: flex;
+  
+  padding: 1.5rem 3rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+  border-radius: 6.25rem;
+  background: var(--Neutral-100, #030712);
+  color: var(--Neutral-0, #fff);
+  font-family: Inter Tight;
+  font-size: 1.375rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 130%; /* 1.7875rem */
+  letter-spacing: 0.0275rem;
+  cursor: pointer;
+  margin-top: 2rem;
+}
