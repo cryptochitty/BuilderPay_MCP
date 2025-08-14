@@ -169,7 +169,7 @@ MIT License © 2025 BuilderPay Team
 
 ## 📫 Contact
 
-Questions or support? Reach out at [builderpay@example.com](mailto:builderpay@example.com) or open an issue in this repo.
+Questions or support? Reach out at [crypto.chitty@gmail.com](mailto:crypto.chitty@gmail.com) or open an issue in this repo.
 
 ```
 
