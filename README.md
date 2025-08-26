@@ -76,7 +76,7 @@ Builders receive proportional incentives
 ## 🌐 Supported Protocols & Tools
 
 - **DeFi Strategies**:
-  - Moola Market, Ubeswap (Celo)
+  - Moola Market, Ubeswap (Celo), Immortalx, Minipay
   - Velodrome, Sonne (OP Chains)
 
 - **Stablecoin Swaps**:
