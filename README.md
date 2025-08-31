@@ -11,8 +11,6 @@ BuilderPay is a next-generation Web3 platform empowering builders by connecting 
 
 ✅ **BuilderPay Pool Donations** – Donors can contribute to BuilderPay’s pooled fund, where incentives from staking are redistributed to builders proportionally based on their Superchain reputation or CeloPG scores.
 
-✅ **AutoComp.Finance Integration** – All donated funds are invested in DeFi strategies to generate yield, with incentives auto-reinvested for compounding growth.
-
 ✅ **Stablecoin Support with Mento** – Donations in any supported Celo asset (CELO, cEUR, cREAL) are automatically swapped on-chain to stablecoins like cUSD using Mento.
 
 ✅ **Superchain Compatibility** – BuilderPay supports deployments on Celo Mainnet and OP Superchain chains (e.g., Optimism, Base), allowing cross-chain donations, staking, and reputation tracking.
